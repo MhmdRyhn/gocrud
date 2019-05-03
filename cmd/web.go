@@ -2,10 +2,7 @@ package cmd
 
 
 import (
-    // "fmt"
-
     "github.com/urfave/cli"
-    // "gopkg.in/macaron.v1"
 
     "github.com/mhmdryhn/gocrud/routers/routes"
 )

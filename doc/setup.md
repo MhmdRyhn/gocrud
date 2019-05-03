@@ -2,5 +2,5 @@
 A CRUD API built using **go-macaron**
 
 
-## Set up
+## Setup
 Coming soon
