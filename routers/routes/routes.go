@@ -2,23 +2,17 @@ package routes
 
 
 import (
-    "fmt"
-
-    "github.com/urfave/cli"
     "gopkg.in/macaron.v1"
+
+    "github.com/mhmdryhn/gocrud/routers"
 )
 
-var runServer = cli.Command {
-    Name: "runserver",
-    Usage: "Start web server",
-    Description: "Web server is the only thing you need to run
-        It'll take care of everything"
-    Action: runServer,
-}
 
-func runServer (c *cli.Context) error {
+func Routes() {
     m := macaron.Classic()
     m.Use(macaron.Renderer())
-    
-    m.Post("/author/list/", Authors)
+
+    m.Post("/author/list/", routers.Authors)  // inside `bookauthor.go`
+
+    m.Run()
 }

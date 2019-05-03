@@ -6,7 +6,7 @@ import (
 
     "github.com/urfave/cli"
 
-    "github.com/mhmdryhn/gocrud/routers/routes"
+    "github.com/mhmdryhn/gocrud/cmd"
 )
 
 
@@ -20,7 +20,7 @@ func main ()  {
     app.Version = APP_VERSION
 
     app.Commands = []cli.Command {
-        routes.Check,
+        cmd.StartServer,  // inside `web.go`
     }
 
     app.Run(os.Args)
