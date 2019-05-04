@@ -12,7 +12,8 @@ func Routes() {
     m := macaron.Classic()
     m.Use(macaron.Renderer())
 
-    m.Post("/author/list/", routers.Authors)  // inside `bookauthor.go`
+    m.Post("/author/", routers.AuthorHandler)
+    // m.Post("/book/", routers.Books)
 
     m.Run()
 }
