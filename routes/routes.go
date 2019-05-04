@@ -4,7 +4,7 @@ package routes
 import (
     "gopkg.in/macaron.v1"
 
-    "github.com/mhmdryhn/gocrud/routers"
+    "github.com/mhmdryhn/gocrud/routes/routers"
 )
 
 

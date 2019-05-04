@@ -1,16 +1,26 @@
 package models
 
 
+import (
+    "github.com/jinzhu/gorm"
+    _ "github.com/jinzhu/gorm/dialects/postgres"
+)
+
+
 type Author struct {
-    Name string `gorm:"not null"`
-    Email string `gorm:"primary_key"`
-    Phone string
+    gorm.Model
+    Name string `gorm:"type:varchar(128);not null"`
+    Email string `gorm:"type:varchar(128);unique;not null"`
+    Phone string `gorm:"type:varchar(32)"`
     Age float32
-    Address string
+    Address string `gorm:"type:varchar(256)"`
 }
 
 
 type Book struct {
-    Name string `gorm:"not null"`
-    ISBN string `gorm:"not null"`
+    gorm.Model
+    Name string `gorm:"type:varchar(128);not null"`
+    ISBN string `gorm:"type:varchar(64);not null"`
+    Author Author `gorm:"foreignkey:Author_id"`
+    Author_id uint
 }
