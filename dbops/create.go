@@ -2,6 +2,7 @@ package dbops
 
 
 import (
+    "fmt"
     // "errors"
 
     // "github.com/jinzhu/gorm"
@@ -65,7 +66,8 @@ func CreateNewAuthor(data map[string]interface{}) (map[string]interface{}, error
     if db.NewRecord(author) {
         db.Create(&author)
         if !db.NewRecord(author) {
-            db.Create(&author)
+            r := db.Create(&author)
+            fmt.Println("Created:", r)
             resp["verdict"] = "Author created successfully"
             return resp, nil
         }
