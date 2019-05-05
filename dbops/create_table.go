@@ -13,6 +13,21 @@ import (
 )
 
 
+func GetConnection() (*gorm.DB, error) {
+    dbType, credentials, err := generateDBCredentials()
+    if err != nil {
+        fmt.Println("settings.DATABASE not found")
+    }
+
+    db, err := gorm.Open(
+        dbType,
+        credentials,
+    )
+
+    return db, err
+}
+
+
 func CreateTables() error {
     dbType, credentials, err := generateDBCredentials()
     if err != nil {
