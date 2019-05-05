@@ -2,7 +2,7 @@ package dbops
 
 
 import (
-    "fmt"
+    // "fmt"
     // "errors"
 
     // "github.com/jinzhu/gorm"
@@ -61,17 +61,17 @@ func CreateNewAuthor(data map[string]interface{}) (map[string]interface{}, error
         author.Address = value.(string)
     }
 
-    db, err := GetConnection()
+    // db, err := GetConnection()
 
-    if db.NewRecord(author) {
-        db.Create(&author)
-        if !db.NewRecord(author) {
-            r := db.Create(&author)
-            fmt.Println("Created:", r)
-            resp["verdict"] = "Author created successfully"
-            return resp, nil
-        }
-    }
+    // if db.NewRecord(author) {
+    //     db.Create(&author)
+    //     if !db.NewRecord(author) {
+    //         r := db.Create(&author)
+    //         fmt.Println("Created:", r)
+    //         resp["verdict"] = "Author created successfully"
+    //         return resp, nil
+    //     }
+    // }
 
     // db.Create(&user)
 

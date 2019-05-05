@@ -2,25 +2,32 @@ package models
 
 
 import (
-    "github.com/jinzhu/gorm"
-    _ "github.com/jinzhu/gorm/dialects/postgres"
+    "time"
+
+    // "github.com/jinzhu/gorm"
+    // _ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 
 type Author struct {
-    gorm.Model
-    Name string `gorm:"type:varchar(128);not null"`
-    Email string `gorm:"type:varchar(128);unique;not null"`
-    Phone string `gorm:"type:varchar(32)"`
+    Id uint64 `xorm:"pk autoincr"`
+    Name string `xorm:"VARCHAR(128) NOT NULL"`
+    Email string `xorm:"VARCHAR(128) NOT NULL UNIQUE"`
+    Phone string `xorm:"VARCHAR(32)"`
     Age float32
-    Address string `gorm:"type:varchar(256)"`
+    Address string `xorm:"VARCHAR(256)"`
+
+    Created time.Time `xorm:"created"`
+    Updated time.Time `xorm:"updated"`
 }
 
 
 type Book struct {
-    gorm.Model
-    Name string `gorm:"type:varchar(128);not null"`
-    ISBN string `gorm:"type:varchar(64);not null"`
-    Author Author `gorm:"foreignkey:Author_id"`
-    Author_id uint
+    Id uint64 `xorm:"pk autoincr"`
+    Name string `xorm:"varchar(128) NOT NULL"`
+    Isbn string `xorm:"varchar(64) NOT NULL"`
+    Author Author
+    
+    Created time.Time `xorm:"created"`
+    Updated time.Time `xorm:"updated"`
 }
