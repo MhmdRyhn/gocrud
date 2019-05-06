@@ -26,8 +26,8 @@ type Book struct {
     Id uint64 `xorm:"pk autoincr"`
     Name string `xorm:"varchar(128) NOT NULL"`
     Isbn string `xorm:"varchar(64) NOT NULL"`
-    Author Author
-    
+    Author *Author `xorm:"-"`
+
     Created time.Time `xorm:"created"`
     Updated time.Time `xorm:"updated"`
 }
