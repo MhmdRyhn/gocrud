@@ -12,7 +12,7 @@ type Author struct {
     Name string `gorm:"type:varchar(128);not null"`
     Email string `gorm:"type:varchar(128);unique;not null"`
     Phone string `gorm:"type:varchar(32)"`
-    Age float32
+    Age float64
     Address string `gorm:"type:varchar(256)"`
 }
 

@@ -1,6 +1,6 @@
 Creating Author:
 ================
-
+```
 {
     "on": "author",
     "apply": "create",
@@ -21,32 +21,38 @@ Creating Author:
     "age": 52,
     "address": "USA"
 }
-
+```
 
 
 Get all author
 ===============
+```
 {
     "on": "author",
     "apply": "fetch_all"
 }
+```
 
 
 Get single author
 ==================
+```
 {
     "on": "author",
     "apply": "fetch_one",
     "id": 1
 }
+```
 
 
 Update Author
 ==============
+```
 {
     "on": "author",
     "apply": "update"
 }
+```
 
 
 

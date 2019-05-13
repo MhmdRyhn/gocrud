@@ -20,6 +20,8 @@ func Execute(data map[string]interface{}) map[string]interface{} {
             if value2 == "create" {
                 fmt.Println("Received the correct thing")
                 resp, _ = dbops.CreateNewAuthor(data)
+            } else if value2 == "fetch_all" {
+                resp, _ = dbops.GetAllAuthor()
             }
         }
     } else {
