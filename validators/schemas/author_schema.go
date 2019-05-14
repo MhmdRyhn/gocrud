@@ -21,3 +21,17 @@ func ValidateNewAuthor(data map[string]interface{}) (map[string]interface{}, err
     }
     return resp, nil
 }
+
+
+func ValidateAuthorFilterCondition(data map[string]interface{}) (map[string]interface{}, error) {
+    resp := make(map[string]interface{})
+
+    if _, ok := data["email"]; !ok {
+        resp["verdict"] = "email key is missing"
+    }
+
+    if _, ok := resp["verdict"]; ok {
+        return resp, errors.New("invalid")
+    }
+    return resp, nil
+}

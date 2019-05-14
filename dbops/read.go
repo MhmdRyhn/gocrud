@@ -2,11 +2,11 @@ package dbops
 
 
 import (
-    // "fmt"
+    "fmt"
     // "errors"
 
     "github.com/mhmdryhn/gocrud/models"
-    // "github.com/mhmdryhn/gocrud/validators/schemas"
+    "github.com/mhmdryhn/gocrud/validators/schemas"
 )
 
 
@@ -14,10 +14,11 @@ func GetAllAuthor() (map[string]interface{}, error) {
     db, _ := GetConnection()
 
     var authors []models.Author
-    db.Find(&authors)
+    e := db.Find(&authors)
+    fmt.Println("e:", e)
     querysetLength := len(authors)
     resp := make([]map[string]interface{}, querysetLength)
-    totalResp := make(map[string]interface{})
+    // totalResp := make(map[string]interface{})
 
     for i := 0; i < querysetLength; i++ {
         resp[i] = map[string]interface{}{
@@ -33,6 +34,16 @@ func GetAllAuthor() (map[string]interface{}, error) {
     // fmt.Println("Authors\n=========\n", authors)
     // fmt.Println(authors[0].Email, authors[0].ID, authors[1].Email, querysetLength)
     // resp["verdict"] = "Getting"
-    totalResp["QuerySet"] = resp
-    return totalResp, nil
+    // totalResp["QuerySet"] = resp
+    // return totalResp, nil
+    
+    return map[string]interface{}{
+        "QuerySet": resp,
+        }, nil
+}
+
+
+func GetAuthor(data map[string]interface{}) (map[string]interface{}, error) {
+    resp := make(map[string]interface{})
+    resp, err := schemas.ValidateAuthorFilterCondition(data)
 }

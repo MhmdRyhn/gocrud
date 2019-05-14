@@ -22,6 +22,8 @@ func Execute(data map[string]interface{}) map[string]interface{} {
                 resp, _ = dbops.CreateNewAuthor(data)
             } else if value2 == "fetch_all" {
                 resp, _ = dbops.GetAllAuthor()
+            } else if value2 == "fetch_one" {
+                resp, _ = dbops.GetAuthor(data)
             }
         }
     } else {
