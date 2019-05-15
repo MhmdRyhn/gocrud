@@ -3,11 +3,13 @@ package main
 
 import (
     "os"
-    // "fmt"
+    "fmt"
+    "encoding/json"
 
     "github.com/urfave/cli"
 
     "github.com/mhmdryhn/gocrud/cmd"
+    "github.com/mhmdryhn/gocrud/models"
 )
 
 
@@ -15,6 +17,19 @@ const APP_VERSION = "0.0.1"
 
 
 func main ()  {
+    // auth := &models.Author {
+    //     Name: "Joe Navarro",
+    //     Email: "joe@mail.com",
+    //     Phone: "+102456489",
+    //     Age: 52,
+    //     Address: "USA",
+    // }
+    // e, err := json.Marshal(auth)
+    // if err == nil {
+    //     fmt.Println(string(e))
+    // }
+
+
     app := cli.NewApp()
     app.Name = "Go CRUD"
     app.Usage = "Learning CRUD operation using go-macaron and gorm"

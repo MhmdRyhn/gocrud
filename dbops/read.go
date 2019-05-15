@@ -3,7 +3,7 @@ package dbops
 
 import (
     "fmt"
-    // "errors"
+    "errors"
 
     "github.com/mhmdryhn/gocrud/models"
     "github.com/mhmdryhn/gocrud/validators/schemas"
@@ -36,7 +36,7 @@ func GetAllAuthor() (map[string]interface{}, error) {
     // resp["verdict"] = "Getting"
     // totalResp["QuerySet"] = resp
     // return totalResp, nil
-    
+
     return map[string]interface{}{
         "QuerySet": resp,
         }, nil
@@ -46,4 +46,32 @@ func GetAllAuthor() (map[string]interface{}, error) {
 func GetAuthor(data map[string]interface{}) (map[string]interface{}, error) {
     resp := make(map[string]interface{})
     resp, err := schemas.ValidateAuthorFilterCondition(data)
+
+    if err != nil {
+        return resp, nil
+    }
+
+    var author models.Author
+    db, err := GetConnection()
+
+    if err != nil {
+        resp["verdict"] = "Database connection error"
+        return resp, errors.New("connection_error")
+    }
+
+    if dbError := db.Where(&models.Author{Email: data["email"].(string)}).First(&author); dbError.Error != nil {
+        return map[string]interface{} {
+            "verdict": dbError.Error,
+        }, nil
+    }
+
+    return map[string]interface{} {
+        "ID": author.ID,
+        "Name": author.Name,
+        "Email": author.Email,
+        "Phone": author.Phone,
+        "Age": author.Age,
+        "Address": author.Address,
+    }, nil
+
 }
