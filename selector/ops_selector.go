@@ -1,4 +1,4 @@
-package factory
+package selector
 
 
 import (
@@ -24,6 +24,8 @@ func Execute(data map[string]interface{}) map[string]interface{} {
                 resp, _ = dbops.GetAllAuthor()
             } else if value2 == "fetch_one" {
                 resp, _ = dbops.GetAuthor(data)
+            } else if value2 == "update" {
+                resp, _ = dbops.UpdateAuthor(data)
             }
         }
     } else {

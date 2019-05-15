@@ -35,3 +35,17 @@ func ValidateAuthorFilterCondition(data map[string]interface{}) (map[string]inte
     }
     return resp, nil
 }
+
+
+// func ValidateAuthorUpdateData(data map[string]interface{}) (map[string]interface{}, map[string]interface{}, error) {
+//     keyValue := make([string]interface{})
+//     allowedKeys := []string {
+//         "email", "name", "phone", "age", "address",
+//     }
+//     updateKey :=
+//     for _, key := range allowedKeys {
+//         if value, ok := data[key]; ok {
+//             keyValue[key] = value
+//         }
+//     }
+// }

@@ -7,7 +7,7 @@ import (
 
     "gopkg.in/macaron.v1"
 
-    "github.com/mhmdryhn/gocrud/factory"
+    "github.com/mhmdryhn/gocrud/selector"
 )
 
 
@@ -27,7 +27,7 @@ func AuthorHandler(ctx *macaron.Context)  {
 
     json.Unmarshal([]byte(requestBody), &incomingJSON)
 
-    response = factory.Execute(incomingJSON)
+    response = selector.Execute(incomingJSON)
 
     fmt.Println("Response:", response)
 

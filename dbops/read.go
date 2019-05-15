@@ -18,24 +18,10 @@ func GetAllAuthor() (map[string]interface{}, error) {
     fmt.Println("e:", e)
     querysetLength := len(authors)
     resp := make([]map[string]interface{}, querysetLength)
-    // totalResp := make(map[string]interface{})
 
     for i := 0; i < querysetLength; i++ {
-        resp[i] = map[string]interface{}{
-            "ID": authors[i].ID,
-            "Name": authors[i].Name,
-            "Email": authors[i].Email,
-            "Phone": authors[i].Phone,
-            "Age": authors[i].Age,
-            "Address": authors[i].Address,
-        }
+        resp[i] = authors[i].ToMap()
     }
-
-    // fmt.Println("Authors\n=========\n", authors)
-    // fmt.Println(authors[0].Email, authors[0].ID, authors[1].Email, querysetLength)
-    // resp["verdict"] = "Getting"
-    // totalResp["QuerySet"] = resp
-    // return totalResp, nil
 
     return map[string]interface{}{
         "QuerySet": resp,
@@ -60,18 +46,12 @@ func GetAuthor(data map[string]interface{}) (map[string]interface{}, error) {
     }
 
     if dbError := db.Where(&models.Author{Email: data["email"].(string)}).First(&author); dbError.Error != nil {
+        fmt.Println("error:", dbError.Error, author)
         return map[string]interface{} {
-            "verdict": dbError.Error,
+            "verdict": "record not found",
         }, nil
     }
-
-    return map[string]interface{} {
-        "ID": author.ID,
-        "Name": author.Name,
-        "Email": author.Email,
-        "Phone": author.Phone,
-        "Age": author.Age,
-        "Address": author.Address,
-    }, nil
+    
+    return author.ToMap(), nil
 
 }

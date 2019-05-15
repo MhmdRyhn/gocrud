@@ -11,8 +11,8 @@ import (
 
 
 func CreateNewAuthor(data map[string]interface{}) (map[string]interface{}, error) {
-    var resp map[string]interface{}
-    resp = make(map[string]interface{})
+    // var resp map[string]interface{}
+    resp := make(map[string]interface{})
     author := models.Author{}
     resp, err := schemas.ValidateNewAuthor(data)
 
