@@ -40,7 +40,7 @@ Get single author
 {
     "on": "author",
     "apply": "fetch_one",
-    "id": 1
+    "email": "daron@mail.com"
 }
 ```
 
@@ -50,7 +50,9 @@ Update Author
 ```
 {
     "on": "author",
-    "apply": "update"
+    "apply": "update",
+    "email": "daron@mail.com",
+    "name": "Daron Acemogluuuu"
 }
 ```
 

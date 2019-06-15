@@ -30,6 +30,10 @@ func ValidateAuthorFilterCondition(data map[string]interface{}) (map[string]inte
         resp["verdict"] = "email key is missing"
     }
 
+    // if _, ok := data["apply"]; !ok {
+    //     resp["verdict"] = "operation not defined (apply key is missing)"
+    // }
+
     if _, ok := resp["verdict"]; ok {
         return resp, errors.New("invalid")
     }
@@ -37,15 +41,15 @@ func ValidateAuthorFilterCondition(data map[string]interface{}) (map[string]inte
 }
 
 
-// func ValidateAuthorUpdateData(data map[string]interface{}) (map[string]interface{}, map[string]interface{}, error) {
-//     keyValue := make([string]interface{})
-//     allowedKeys := []string {
-//         "email", "name", "phone", "age", "address",
-//     }
-//     updateKey :=
-//     for _, key := range allowedKeys {
-//         if value, ok := data[key]; ok {
-//             keyValue[key] = value
-//         }
-//     }
-// }
+func ValidateAuthorUpdateData(data map[string]interface{}) (map[string]interface{}, map[string]interface{}, error) {
+    keyValue := make(map[string]interface{})
+    allowedKeys := []string {
+        "email", "name", "phone", "age", "address",
+    }
+    updateKey := "email"
+    for _, key := range allowedKeys {
+        if value, ok := data[key]; ok {
+            keyValue[key] = value
+        }
+    }
+}

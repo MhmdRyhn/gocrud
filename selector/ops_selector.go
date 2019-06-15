@@ -9,13 +9,15 @@ import (
 
 
 func Execute(data map[string]interface{}) map[string]interface{} {
-    value1, ok1 := data["on"]
-    value2, ok2 := data["apply"]
-
     // var resp map[string]interface{}
     resp := make(map[string]interface{})
 
-    if ok1 && ok2 {
+    value1, ok1 := data["on"]
+    value2, ok2 := data["apply"]
+
+    if !ok2 {
+        resp["verdict"] = "operation not defined (apply key is missing)"
+    } else if ok1 {
         if value1 == "author" {
             if value2 == "create" {
                 fmt.Println("Received the correct thing")
