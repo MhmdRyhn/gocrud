@@ -9,7 +9,7 @@ import (
 )
 
 var StartServer = cli.Command {
-    Name: "startserver",
+    Name: "serve",
     Usage: "Start web server",
     Description: "Run web server after setting up database",
     Action: startServer,
