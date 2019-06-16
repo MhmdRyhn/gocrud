@@ -59,11 +59,11 @@ func UpdateAuthor(data map[string]interface{}) (map[string]interface{}, error) {
 
     fmt.Println("updated author:", author)
 
-    dbErrorr := db.Save(&author)
+    dbError := db.Save(&author)
 
-    fmt.Println("updated error:", dbErrorr.Error)
+    fmt.Println("updated error:", dbError.Error)
 
-    if dbErrorr.Error == nil {
+    if dbError.Error == nil {
         return map[string]interface{} {
             "verdict": "update successfull",
         }, nil

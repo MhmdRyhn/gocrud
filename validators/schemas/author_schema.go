@@ -2,30 +2,14 @@ package schemas
 
 
 import (
-    "fmt"
-    "errors"
+    // "fmt"
+    // "errors"
 
     "github.com/mhmdryhn/gocrud/exceptions"
 )
 
 
 func ValidateNewAuthor(data map[string]interface{}) (map[string]interface{}, error) {
-    /*
-    var resp map[string]interface{}
-    resp = make(map[string]interface{})
-
-    if _, ok := data["name"]; !ok {
-        resp["verdict"] = "name key is missing"
-    } else if _, ok := data["email"]; !ok {
-        resp["verdict"] = "email key is missing"
-    }
-
-    if _, ok := resp["verdict"]; ok {
-        return resp, exceptions.KEY_ERROR
-    }
-    return resp, nil
-    */
-
     requiredData := make(map[string]interface{})
 
     // Validation for "email" key
@@ -95,16 +79,26 @@ func ValidateNewAuthor(data map[string]interface{}) (map[string]interface{}, err
 
 
 func ValidateAuthorFilterCondition(data map[string]interface{}) (map[string]interface{}, error) {
-    resp := make(map[string]interface{})
+    requiredData := make(map[string]interface{})
+    filterKey := "email"
 
-    if _, ok := data["email"]; !ok {
-        resp["verdict"] = "email key is missing"
+    // Validation for "email" key
+    // "email" key is mandatory
+    if value, ok := data[filterKey]; ok {
+        if value, ok := value.(string); !ok {
+            return map[string]interface{} {
+                "verdict": "email must be string",
+            }, exceptions.TYPE_ERROR
+        } else {
+            requiredData[filterKey] = value
+        }
+    } else {
+        return map[string]interface{} {
+            "verdict": "email key is required",
+        }, exceptions.KEY_ERROR
     }
 
-    if _, ok := resp["verdict"]; ok {
-        return resp, errors.New("not_found")
-    }
-    return resp, nil
+    return requiredData, nil
 }
 
 
@@ -120,7 +114,6 @@ func ValidateAuthorUpdateData(data map[string]interface{}) (map[string]interface
                 "verdict": "email must be string",
             }, exceptions.TYPE_ERROR
         } else {
-            fmt.Println("****** Email ******** : ", value)
             requiredData[updateKey] = value
         }
     } else {
@@ -168,6 +161,30 @@ func ValidateAuthorUpdateData(data map[string]interface{}) (map[string]interface
         } else {
             requiredData["address"] = value
         }
+    }
+
+    return requiredData, nil
+}
+
+
+func ValidateAuthorDeleteCondition(data map[string]interface{}) (map[string]interface{}, error) {
+    requiredData := make(map[string]interface{})
+    deleteKey := "email"
+
+    // Validation for "email" key
+    // "email" key is mandatory
+    if value, ok := data[deleteKey]; ok {
+        if value, ok := value.(string); !ok {
+            return map[string]interface{} {
+                "verdict": "email must be string",
+            }, exceptions.TYPE_ERROR
+        } else {
+            requiredData[deleteKey] = value
+        }
+    } else {
+        return map[string]interface{} {
+            "verdict": "email key is required",
+        }, exceptions.KEY_ERROR
     }
 
     return requiredData, nil

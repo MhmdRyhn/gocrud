@@ -28,6 +28,8 @@ func Execute(data map[string]interface{}) map[string]interface{} {
                 resp, _ = dbops.GetAuthor(data)
             } else if value2 == "update" {
                 resp, _ = dbops.UpdateAuthor(data)
+            } else if value2 == "delete" {
+                resp, _ = dbops.DeleteAuthor(data)
             }
         }
     } else {

@@ -21,6 +21,17 @@ Creating Author:
     "age": 52,
     "address": "USA"
 }
+
+
+{
+    "on": "author",
+    "apply": "create",
+    "name": "Robert C. Martin",
+    "email": "martin@mail.com",
+    "phone": "+1234034728",
+    "age": 42,
+    "address": "USA"
+}
 ```
 
 
@@ -57,8 +68,15 @@ Update Author
 ```
 
 
-
-
+Delete Author
+==============
+```
+{
+    "on": "author",
+    "apply": "delete",
+    "email": "daron@mail.com"
+}
+```
 
 
 
