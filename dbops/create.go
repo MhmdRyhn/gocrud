@@ -52,10 +52,10 @@ func CreateNewAuthor(data map[string]interface{}) (map[string]interface{}, error
 
     if dberror := db.Create(&author); dberror.Error != nil {
         // resp["verdict"] = dberror.Error
-        // fmt.Println("DB insert: ", dberror.Value)
+        fmt.Println("DB insert error: ", dberror.Error)
         // return resp, nil
         return map[string]interface{} {
-            "verdict": dberror.Error,
+            "verdict": "An author with email " + author.Email + " already exists",
         }, nil
     }
 

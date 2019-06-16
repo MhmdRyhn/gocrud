@@ -2,7 +2,7 @@ package dbops
 
 import (
     "fmt"
-    "errors"
+    // "errors"
 
     "github.com/mhmdryhn/gocrud/models"
     // "github.com/mhmdryhn/gocrud/exceptions"
@@ -34,7 +34,12 @@ func DeleteAuthor(data map[string]interface{}) (map[string]interface{}, error) {
         }, err
     }
 
-    author.Email = expectedData["email"].(string)
+    if dbError := db.Where(&models.Author{Email: expectedData["email"].(string)}).First(&author); dbError.Error != nil {
+        fmt.Println("error:", dbError.Error, author)
+        return map[string]interface{} {
+            "verdict": "record not found for deleting",
+        }, nil
+    }
 
     // Unscoped() is for hard-delete
     dbError := db.Unscoped().Where(AUTHOR_DELETE_KEY + " = ?", expectedData["email"].(string)).Delete(&models.Author{})
@@ -47,5 +52,5 @@ func DeleteAuthor(data map[string]interface{}) (map[string]interface{}, error) {
 
     return map[string]interface{} {
         "verdict": "internal error",
-    }, errors.New("db_operation_error")
+    }, dbError.Error
 }

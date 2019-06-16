@@ -2,7 +2,7 @@ package dbops
 
 import (
     "fmt"
-    "errors"
+    // "errors"
 
     "github.com/mhmdryhn/gocrud/models"
     // "github.com/mhmdryhn/gocrud/exceptions"
@@ -71,5 +71,5 @@ func UpdateAuthor(data map[string]interface{}) (map[string]interface{}, error) {
 
     return map[string]interface{} {
         "verdict": "internal error",
-    }, errors.New("db_operation_error")
+    }, dbError.Error
 }
