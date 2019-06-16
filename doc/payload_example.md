@@ -65,6 +65,14 @@ Update Author
     "email": "daron@mail.com",
     "name": "Daron Acemogluuuu"
 }
+
+
+{
+    "on": "author",
+    "apply": "update",
+    "email": "martin@mail.com",
+    "age": 51
+}
 ```
 
 

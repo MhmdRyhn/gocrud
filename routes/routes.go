@@ -13,7 +13,7 @@ func Routes() {
     m.Use(macaron.Renderer())
 
     m.Post("/author/", routers.AuthorHandler)
-    // m.Post("/book/", routers.Books)
+    // m.Post("/book/", routers.BookHandler)
 
     m.Run()
 }

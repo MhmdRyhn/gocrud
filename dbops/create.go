@@ -2,17 +2,12 @@ package dbops
 
 
 import (
-    "fmt"
-    // "errors"
-
     "github.com/mhmdryhn/gocrud/models"
     "github.com/mhmdryhn/gocrud/validators/schemas"
 )
 
 
 func CreateNewAuthor(data map[string]interface{}) (map[string]interface{}, error) {
-    // var resp map[string]interface{}
-    // resp := make(map[string]interface{})
     author := models.Author{}
     expectedData, err := schemas.ValidateNewAuthor(data)
 
@@ -21,10 +16,9 @@ func CreateNewAuthor(data map[string]interface{}) (map[string]interface{}, error
     }
 
     db, err := GetConnection()
+    defer db.Close()
 
     if err != nil {
-        fmt.Println("Connection error:", err)
-        // expectedData["verdict"] = "Database connection error"
         return map[string]interface{} {
             "verdict": "Database connection error",
         }, err
@@ -42,39 +36,13 @@ func CreateNewAuthor(data map[string]interface{}) (map[string]interface{}, error
         author.Address = value.(string)
     }
 
-    // db, err := GetConnection()
-    //
-    // if err != nil {
-    //     resp["verdict"] = "Database connection error"
-    //     return resp, errors.New("connection_error")
-    // }
-
-
     if dberror := db.Create(&author); dberror.Error != nil {
-        // resp["verdict"] = dberror.Error
-        fmt.Println("DB insert error: ", dberror.Error)
-        // return resp, nil
         return map[string]interface{} {
             "verdict": "An author with email " + author.Email + " already exists",
         }, nil
     }
 
-    // resp["verdict"] = "Author created successfully"
     return map[string]interface{} {
         "verdict": "Author created successfully",
     }, nil
-
-
-    // if db.NewRecord(author) {
-    //     db.Create(&author)
-    //     if !db.NewRecord(author) {
-    //         r := db.Create(&author)
-    //         fmt.Println("Created:", r)
-    //         resp["verdict"] = "Author created successfully"
-    //         return resp, nil
-    //     }
-    // }
-
-
-    // return resp, nil
 }

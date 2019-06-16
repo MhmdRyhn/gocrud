@@ -1,11 +1,7 @@
 package dbops
 
 import (
-    "fmt"
-    // "errors"
-
     "github.com/mhmdryhn/gocrud/models"
-    // "github.com/mhmdryhn/gocrud/exceptions"
     "github.com/mhmdryhn/gocrud/validators/schemas"
 )
 
@@ -17,8 +13,6 @@ const (
 func DeleteAuthor(data map[string]interface{}) (map[string]interface{}, error) {
     expectedData, err := schemas.ValidateAuthorDeleteCondition(data)
 
-    fmt.Println("Schema Validation Error:", err)
-
     if err != nil {
         return expectedData, nil
     }
@@ -27,15 +21,12 @@ func DeleteAuthor(data map[string]interface{}) (map[string]interface{}, error) {
     db, err := GetConnection()
 
     if err != nil {
-        fmt.Println("Connection error:", err)
-        // expectedData["verdict"] = "Database connection error"
         return map[string]interface{} {
             "verdict": "Database connection error",
         }, err
     }
 
     if dbError := db.Where(&models.Author{Email: expectedData["email"].(string)}).First(&author); dbError.Error != nil {
-        fmt.Println("error:", dbError.Error, author)
         return map[string]interface{} {
             "verdict": "record not found for deleting",
         }, nil

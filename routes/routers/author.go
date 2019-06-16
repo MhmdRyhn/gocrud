@@ -2,7 +2,7 @@ package routers
 
 
 import (
-    "fmt"
+    // "fmt"
 	"encoding/json"
 
     "gopkg.in/macaron.v1"
@@ -11,28 +11,24 @@ import (
 )
 
 
-// func CreateAuthor(ctx *macaron.Context) map[string]interface{} {
-//
-// }
-
-
 func AuthorHandler(ctx *macaron.Context)  {
     requestBody, err := ctx.Req.Body().String()
-
-    fmt.Println("Request body:\n", requestBody)
-    fmt.Println("Error:", err)
+    // fmt.Println("Request body:\n", requestBody)
 
     var incomingJSON map[string]interface{}
     var response map[string]interface{}
 
+    if err != nil {
+        // fmt.Println("Error:", err)
+        ctx.JSON(200, map[string]interface{} {
+            "verdict": "Invalid JSON",
+        })
+    }
+
     json.Unmarshal([]byte(requestBody), &incomingJSON)
 
     response = selector.Execute(incomingJSON)
-
-    fmt.Println("Response:", response)
-
-    // fmt.Println("JSON to map:\n", incomingJSON["Name"], incomingJSON["Email"],
-    //     incomingJSON["Addr"])
+    // fmt.Println("Response:", response)
 
     ctx.JSON(200, response)
 }

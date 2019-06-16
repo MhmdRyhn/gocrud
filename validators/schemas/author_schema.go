@@ -2,9 +2,6 @@ package schemas
 
 
 import (
-    // "fmt"
-    // "errors"
-
     "github.com/mhmdryhn/gocrud/exceptions"
 )
 
