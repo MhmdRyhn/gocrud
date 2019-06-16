@@ -36,7 +36,7 @@ func UpdateAuthor(data map[string]interface{}) (map[string]interface{}, error) {
     if dbError := db.Where(&models.Author{Email: data[AUTHOR_UPDATE_KEY].(string)}).First(&author); dbError.Error != nil {
         fmt.Println("error:", dbError.Error, author)
         return map[string]interface{} {
-            "verdict": "email address not found",
+            "verdict": "email not found",
         }, nil
     }
 
