@@ -2,6 +2,7 @@ package schemas
 
 
 import (
+    "fmt"
     "errors"
 )
 
@@ -39,24 +40,63 @@ func ValidateAuthorFilterCondition(data map[string]interface{}) (map[string]inte
 
 func ValidateAuthorUpdateData(data map[string]interface{}) (map[string]interface{}, error) {
     requiredData := make(map[string]interface{})
-
     updateKey := "email"
+
+    // Validation for "email" key
+    // "email" key is mandatory
     if value, ok := data[updateKey]; ok {
-        requiredData[updateKey] = value
+        if value, ok := value.(string); !ok {
+            return map[string]interface{} {
+                "verdict": "email must be string",
+            }, errors.New("type_error")
+        } else {
+            fmt.Println("****** Email ******** : ", value)
+            requiredData[updateKey] = value
+        }
     } else {
         return map[string]interface{} {
             "verdict": "email key not found",
         }, errors.New("not_found")
     }
 
-
-    allowedKeys := []string {
-        "email", "name", "phone", "age", "address",
+    // Validation for "name" key
+    if value, ok := data["name"]; ok {
+        if value, ok := value.(string); !ok {
+            return map[string]interface{} {
+                "verdict": "name must be string",
+            }, errors.New("type_error")
+        } else {
+            requiredData["name"] = value
+        }
     }
-
-    for _, key := range allowedKeys {
-        if value, ok := data[key]; ok {
-            requiredData[key] = value
+    // Validation for "phone" key
+    if value, ok := data["phone"]; ok {
+        if value, ok := value.(string); !ok {
+            return map[string]interface{} {
+                "verdict": "phone must be string",
+            }, errors.New("type_error")
+        } else {
+            requiredData["phone"] = value
+        }
+    }
+    // Validation for "age" key
+    if value, ok := data["age"]; ok {
+        if value, ok = value.(float64); !ok {
+            return map[string]interface{} {
+                "verdict": "age must be int or folat",
+            }, errors.New("type_error")
+        } else {
+            requiredData["age"] = value
+        }
+    }
+    // Validation for "address" key
+    if value, ok := data["address"]; ok {
+        if value, ok := value.(string); !ok {
+            return map[string]interface{} {
+                "verdict": "address must be string",
+            }, errors.New("type_error")
+        } else {
+            requiredData["address"] = value
         }
     }
 
