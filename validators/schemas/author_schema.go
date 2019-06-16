@@ -4,6 +4,8 @@ package schemas
 import (
     "fmt"
     "errors"
+
+    "github.com/mhmdryhn/gocrud/exceptions"
 )
 
 
@@ -18,7 +20,7 @@ func ValidateNewAuthor(data map[string]interface{}) (map[string]interface{}, err
     }
 
     if _, ok := resp["verdict"]; ok {
-        return resp, errors.New("not_found")
+        return resp, exceptions.KEY_ERROR
     }
     return resp, nil
 }
@@ -48,7 +50,7 @@ func ValidateAuthorUpdateData(data map[string]interface{}) (map[string]interface
         if value, ok := value.(string); !ok {
             return map[string]interface{} {
                 "verdict": "email must be string",
-            }, errors.New("type_error")
+            }, exceptions.TYPE_ERROR
         } else {
             fmt.Println("****** Email ******** : ", value)
             requiredData[updateKey] = value
@@ -56,7 +58,7 @@ func ValidateAuthorUpdateData(data map[string]interface{}) (map[string]interface
     } else {
         return map[string]interface{} {
             "verdict": "email key not found",
-        }, errors.New("not_found")
+        }, exceptions.KEY_ERROR
     }
 
     // Validation for "name" key
@@ -64,7 +66,7 @@ func ValidateAuthorUpdateData(data map[string]interface{}) (map[string]interface
         if value, ok := value.(string); !ok {
             return map[string]interface{} {
                 "verdict": "name must be string",
-            }, errors.New("type_error")
+            }, exceptions.TYPE_ERROR
         } else {
             requiredData["name"] = value
         }
@@ -74,7 +76,7 @@ func ValidateAuthorUpdateData(data map[string]interface{}) (map[string]interface
         if value, ok := value.(string); !ok {
             return map[string]interface{} {
                 "verdict": "phone must be string",
-            }, errors.New("type_error")
+            }, exceptions.TYPE_ERROR
         } else {
             requiredData["phone"] = value
         }
@@ -84,7 +86,7 @@ func ValidateAuthorUpdateData(data map[string]interface{}) (map[string]interface
         if value, ok = value.(float64); !ok {
             return map[string]interface{} {
                 "verdict": "age must be int or folat",
-            }, errors.New("type_error")
+            }, exceptions.TYPE_ERROR
         } else {
             requiredData["age"] = value
         }
@@ -94,7 +96,7 @@ func ValidateAuthorUpdateData(data map[string]interface{}) (map[string]interface
         if value, ok := value.(string); !ok {
             return map[string]interface{} {
                 "verdict": "address must be string",
-            }, errors.New("type_error")
+            }, exceptions.TYPE_ERROR
         } else {
             requiredData["address"] = value
         }

@@ -5,6 +5,7 @@ import (
     "errors"
 
     "github.com/mhmdryhn/gocrud/models"
+    // "github.com/mhmdryhn/gocrud/exceptions"
     "github.com/mhmdryhn/gocrud/validators/schemas"
 )
 
@@ -13,18 +14,23 @@ const (
 )
 
 func UpdateAuthor(data map[string]interface{}) (map[string]interface{}, error) {
-    requiredData, err := schemas.ValidateAuthorUpdateData(data)
+    expectedData, err := schemas.ValidateAuthorUpdateData(data)
+
+    fmt.Println("Schema Validation Error:", err)
 
     if err != nil {
-        return requiredData, nil
+        return expectedData, nil
     }
 
     var author models.Author
     db, err := GetConnection()
 
     if err != nil {
-        requiredData["verdict"] = "Database connection error"
-        return requiredData, errors.New("connection_error")
+        fmt.Println("Connection error:", err)
+        // expectedData["verdict"] = "Database connection error"
+        return map[string]interface{} {
+            "verdict": "Database connection error",
+        }, err
     }
 
     if dbError := db.Where(&models.Author{Email: data[AUTHOR_UPDATE_KEY].(string)}).First(&author); dbError.Error != nil {
@@ -34,20 +40,20 @@ func UpdateAuthor(data map[string]interface{}) (map[string]interface{}, error) {
         }, nil
     }
 
-    if value, ok := requiredData["email"]; ok {
+    if value, ok := expectedData["email"]; ok {
         author.Email = value.(string)
     }
-    if value, ok := requiredData["name"]; ok {
+    if value, ok := expectedData["name"]; ok {
         fmt.Println("name:", value)
         author.Name = value.(string)
     }
-    if value, ok := requiredData["phone"]; ok {
+    if value, ok := expectedData["phone"]; ok {
         author.Phone = value.(string)
     }
-    if value, ok := requiredData["age"]; ok {
+    if value, ok := expectedData["age"]; ok {
         author.Age = value.(float64)
     }
-    if value, ok := requiredData["Address"]; ok {
+    if value, ok := expectedData["Address"]; ok {
         author.Address = value.(string)
     }
 
